@@ -1,0 +1,16 @@
+            <?php echo editarOrganizacion($_GET["id"]) ?> 
+            
+            <div class="row">
+                <input type="submit" class="btn waves-effect waves-light" name="enviar" id="enviar" value="Cambiar">
+            </div>
+            <div class="row">
+            <span class = "error">
+                <?php
+                    echo $orgErr;
+                ?>
+            </span>
+        </div>
+            
+        </form>
+    </div>
+</div>

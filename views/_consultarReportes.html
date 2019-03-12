@@ -1,0 +1,52 @@
+<nav id="titulo" class="cyan">
+    <div class="container">
+        <div class="nav-wrapper"><a class="page-title">REPORTES</a></div>
+    </div>
+</nav>
+
+<div class="botones"></div>
+
+<div class="row">
+    <div class="input-field">
+        <select class="div-toggle col s6 offset-s3" data-target=".my-info-1">
+            <option value="" disabled="" selected="">Elige tu reporte</option>
+            <option value="1" data-show=".alumnos">Alumnos</option>
+            <option value="1" data-show=".voluntarios">Voluntarios</option>
+            <option value="1" data-show=".SS">Servicio Social</option>
+            <option value="1" data-show=".programas">Programas</option>
+        </select>
+    </div>
+    <div class="my-info-1">
+        <div class="alumnos hide">
+            <?php echo(reporteAlumnos()) ?>
+            <a href="../controllers/moduloExcel.php?reporte=1" class="btn-floating btn-large lime bottomRight">
+                <i class="material-icons">get_app</i>
+            </a>
+        </div>  
+        <div class="voluntarios hide">
+            <?php echo(reporteVoluntarios()) ?>
+            <a href="../controllers/moduloExcel.php?reporte=2" class="btn-floating btn-large lime bottomRight">
+                <i class="material-icons">get_app</i>
+            </a>
+        </div>   
+        <div class="SS hide">
+            <?php echo(reporteServicioSocial()) ?>
+            <a href="../controllers/moduloExcel.php?reporte=3" class="btn-floating btn-large lime bottomRight">
+                <i class="material-icons">get_app</i>
+            </a>
+        </div>
+        <div class="programas hide">
+            <?php echo(reporteProgramas()) ?>
+            <a href="../controllers/moduloExcel.php?reporte=4" class="btn-floating btn-large lime bottomRight">
+                <i class="material-icons">get_app</i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!--<a href="../controllers/descargaExcel.php" class="btn-floating btn-large lime bottomRight"><i class="material-icons">get_app</i></i></a>-->
+
+
+
+ 

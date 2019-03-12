@@ -1,0 +1,139 @@
+<nav id="titulo" class="cyan">
+        <div class="container">
+          <div class="nav-wrapper"><a class="page-title">REGISTRAR SERVICIO SOCIAL</a></div>
+        </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarServicioSocial.php"><i class="material-icons cwhite" >arrow_back</i></a>
+
+<br>
+
+<div class="center-align blue-grey lighten-5">
+    <div class="container paddingTop z-depth-3 white">
+        <form  action="registrarServicioSocial.php" method="POST" id="registroVoluntario">
+        
+        
+            <div class="row">
+                <div class="col s6 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="first_nameS" class="left-align">
+                        Nombre
+                    </label>
+                    <input id="first_nameS" name="nombreAlumno" type="text" class="validate" required>
+                </div>
+                <div class="col s6 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s6 m2 l2"></div>
+                <div class="col s12 m4 l4">
+                    <label for="last_nameS"  class="left-align">
+                        Apellido Paterno
+                    </label>
+                    <input id="last_nameS" type="text" class="validate" name="apellidoPaterno" required>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label for="last_nameSM"  class="left-align">
+                        Apellido Materno
+                        </label>
+                    <input id="last_nameSM" type="text" class="validate" name="apellidoMaterno" required>
+                </div>
+                <div class="col s6 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="fechaNacimiento"  class="left-align">
+                        Fecha de Nacimiento
+                    </label>
+                    <input id="fechaNacimiento" type="date" class="datepicker" name="fechaNacimiento" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="telefonoS"  class="left-align">
+                        Teléfono Celular
+                    </label>
+                    <input id="telefonoS" type="tel" class="validate" name="telefonoCelular" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="emailS"  class="left-align">
+                        Email
+                    </label>
+                    <input id="emailS" type="email" class="validate" name="correoElectronico" required>
+                </div>
+                <div class="col s12 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="organizacionSS">Organizacion</label>
+                    <select name="organizacionSS">
+                        <?php echo(listaOrganizaciones())?>
+                    </select>
+                </div>
+                <div class="col s12 m2 l3"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="semestre">Semestre</label>
+                    <input type="number" name="semestre" class="validate" min="1" max="15" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="matricula">Matricula</label>
+                    <input name="matricula" type="text" class="validate" required>
+                </div>
+                <div class="col s12 m2 l3"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="password"  class="left-align">Nueva Contraseña</label>
+                    <a href="#!" class="btn tooltipped waves-effect waves-circle waves btn-floating secondary-content " data-position="bottom" data-delay="50" data-tooltip="La contraseña debe de tener  8-15 caracteres, 1 mayuscula, 1 minuscula y 1 numero">
+                         <i class="material-icons "><add>live_help</add></i>
+                     </a>
+                    <input id="password" type="password" class="validate" name="newPass" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,15}" data-length="15" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+             </div>
+              
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="passwordConfirm" data-error="Las contraseñas no coinciden"
+                    data-success=""  class="left-align">Confirmar Nueva Contraseña</label>
+                    <input id="passwordConfirm" type="password" name="newPassConf" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <button type="submit" id="formaUsuario" class="btn waves-effect waves-light" name="action" disabled>
+                    Registrar
+                </button>
+            </div>
+        
+            <br>
+        </form>
+    
+    </div>
+    <br>
+</div>

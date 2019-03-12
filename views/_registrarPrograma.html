@@ -1,0 +1,52 @@
+<nav id="titulo" class="cyan">
+        <div class="container">
+          <div class="nav-wrapper"><a class="page-title">REGISTRAR PROGRAMA</a></div>
+        </div>
+</nav>
+        
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarProgramas.php"><i class="material-icons cwhite">arrow_back</i></a>
+
+
+<div class="center-align">
+    
+    <br><br>
+    <form  action="registrarPrograma.php" method="POST" id="registroPrograma">
+        <div class="row">
+                <label for="nombrePrograma">
+                    Nombre Programa
+                    <br>
+                    <span class = "error"><?php echo $progErr;?></span>
+                    <br>
+                </label>
+            <div class="input-field col s3"></div>
+            <div class="input-field col s6">
+                <input list="nombrePrograma" name="nombrePrograma" data-length="30" value="<?php echo($_POST['nombrePrograma']) ?>" required>
+                <datalist id="nombrePrograma">
+                    <?php echo(optionsDisplay()) ?>
+                </datalist>
+                <span class = "error"></span>
+            </div>
+            <div class="input-field col s3"></div>
+        </div>
+        
+        <div class="row">
+                <label for="descripcionPrograma">
+                    Descripcion
+                    <br>
+                </label>
+            <div class="input-field col s3"></div>
+            <div class="input-field col s6">
+                <input type="text" name="descripcionPrograma" class="validate" data-length="141" 
+                    value="<?php echo($_POST['descripcionPrograma']) ?> " required>
+                <span class = "error"></span>
+            </div>
+            <div class="input-field col s3"></div>
+        </div>
+        
+        <div class="row">
+            <input type="submit" class="btn waves-effect waves-light" name="enviar" id="enviar" value="Registrar">
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>

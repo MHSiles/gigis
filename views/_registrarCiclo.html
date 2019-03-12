@@ -1,0 +1,52 @@
+<nav id="titulo"  class="cyan">
+        <div class="container">
+          <div class="nav-wrapper"><a class="page-title">REGISTRAR CICLO</a></div>
+        </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarCiclo.php"><i class="material-icons cwhite">arrow_back</i></a>
+
+
+<div class="center-align">
+    
+    <br><br>
+    <form  action="registrarCiclo.php" method="POST" >
+        <div class="row">
+            <div class="input-field col s3"></div>
+            <div class="input-field col s6">
+                <label for="nombre_ciclo" >Nombre</label>
+                <input id="nombre_ciclo" name="nombreCiclo" type="text" class="validate" data-length="40" required>
+                <span class = "error"></span>
+            </div>
+            <div class="input-field col s3"></div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s3"></div>
+            <div class="input-field col s6">
+                <input id="fechaInicio" name="fechaInicio" type="date" class="datepicker">
+                <label for="fechaInicio">Fecha de Inicio</label>
+            </div>
+            <div class="input-field col s3"></div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s3"></div>
+            <div class="input-field col s6">
+                <input id="fechaTermino" name="fechaTermino" type="date" class="datepicker">
+                <label for="fechaTermino">Fecha de Término</label>
+            </div>
+            <div class="input-field col s3"></div>
+        </div>
+
+        <!--<input type="button" onclick="nuevoCiclo()" class="btn waves-effect waves-light" name="enviar" value="Registrar"/>-->
+        
+        <div class="row">
+            <input type="button" onclick="nuevoCiclo()" class="btn waves-effect waves-light" name="enviar" id="enviar" value="Crear">
+        </div>
+    </form>
+    
+</div>
+
+
+

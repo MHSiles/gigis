@@ -1,0 +1,19 @@
+
+<?php echo(editarPrograma($_GET["id"])) ?>
+
+
+            <div class="row">
+            <input type="submit" class="btn waves-effect waves-light" name="enviar" id="enviar" value="Editar">
+        </div>
+        
+        <div class="row">
+            <span class = "error">
+                <?php
+                    echo $progErr;
+                ?>
+            </span>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>

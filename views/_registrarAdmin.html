@@ -1,0 +1,109 @@
+<nav id="titulo" class="cyan">
+        <div class="container">
+          <div class="nav-wrapper"><a class="page-title truncate">REGISTRAR ADMINISTRADOR</a></div>
+        </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarAdmin.php"><i class="material-icons cwhite" >arrow_back</i></a>
+
+<br>
+
+<div class="center-align blue-grey lighten-5">
+    <div class="container paddingTop z-depth-3 white">
+        <form  action="registrarAdmin.php" method="POST" enctype="multipart/form-data">
+        
+            <div class="row">
+                <div class="col s6 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="first_nameA" class="left-align">
+                        Nombre
+                    </label>
+                    <input id="first_nameA" name="nombreAdmin" type="text" class="validate" required>
+                </div>
+                <div class="col s6 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s6 m2 l2"></div>
+                <div class="col s12 m4 l4">
+                    <label for="last_nameA"  class="left-align">
+                        Apellido Paterno
+                    </label>
+                    <input id="last_nameA" type="text" class="validate" name="apellidoPaterno" required>
+                </div>
+                <div class="col s12 m4 l4">
+                    <label for="last_nameAM"  class="left-align">
+                        Apellido Materno
+                        </label>
+                    <input id="last_nameAM" type="text" class="validate" name="apellidoMaterno" required>
+                </div>
+                <div class="col s6 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="fechaNacimiento"  class="left-align">
+                        Fecha de Nacimiento
+                    </label>
+                    <input id="fechaNacimiento" type="date" class="datepicker" name="fechaNacimiento" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="telefonoA"  class="left-align">
+                        Teléfono Celular
+                    </label>
+                    <input id="telefonoA" type="tel" class="validate" name="telefonoCelular" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="emailA"  class="left-align">
+                        Email
+                    </label>
+                    <input id="emailA" type="email" class="validate" name="correoElectronico" required>
+                </div>
+                <div class="col s12 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="password"  class="left-align">Nueva Contraseña</label>
+                    <a href="#!" class="btn tooltipped waves-effect waves-circle waves btn-floating secondary-content " data-position="bottom" data-delay="50" data-tooltip="La contraseña debe de tener  8-15 caracteres, 1 mayuscula, 1 minuscula y 1 numero">
+                         <i class="material-icons "><add>live_help</add></i>
+                     </a>
+                    <input id="password" type="password" class="validate" name="newPass" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,15}" data-length="15" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+             </div>
+              
+            <div class="row">
+                <div class="col s0 m2 l2"></div>
+                <div class="col s12 m8 l8">
+                    <label for="passwordConfirm" data-error="Las contraseñas no coinciden"
+                    data-success=""  class="left-align">Confirmar Nueva Contraseña</label>
+                    <input id="passwordConfirm" type="password" name="newPassConf" required>
+                </div>
+                <div class="col s0 m2 l2"></div>
+            </div>
+            
+            <div class="row">
+                <button type="submit" id="formaUsuario" class="btn waves-effect waves-light" name="action" disabled>
+                    Registrar
+                </button>
+            </div>
+        
+            <br>
+        </form>
+    
+    </div>
+    <br>
+</div>

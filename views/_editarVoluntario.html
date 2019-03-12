@@ -1,0 +1,28 @@
+<nav id="titulo" class="cyan">
+    <div class="container">
+        <div class="nav-wrapper"><a class="page-title">EDITAR INFORMACION VOLUNTARIO</a></div>
+    </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat"><i class="material-icons cwhite" onclick="goBack()">arrow_back</i></a>
+
+<br>
+
+<div class="center-align blue-grey lighten-5">
+    <div class="container paddingTop z-depth-3 white">
+        <form  action="editarVoluntario.php" method="POST" id="registroVoluntario">
+            
+            
+            <?php echo formaEditarVoluntario($_GET['id']) ?> 
+            
+            <div class="row">
+                <button type="submit" id="formaUsuario" class="btn waves-effect waves-light" name="action">
+                    Cambiar
+                </button>
+            </div>
+        </form>
+        <br>
+    </div>
+    <br>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>

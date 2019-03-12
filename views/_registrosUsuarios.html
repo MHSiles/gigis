@@ -1,0 +1,55 @@
+<nav id="titulo" class="cyan">
+    <div class="container">
+        <div class="nav-wrapper"><a class="page-title">REGISTROS POR USUARIO</a></div>
+    </div>
+</nav>
+
+<br>
+
+<div class="container paddingTop">
+    <div class="row">
+        
+        <div class="col s12 m12 l4">
+            <form action="inscribirActividad.php" method="POST" enctype="multipart/form-data">
+                <label class="center"><h5>Alumnos</h5></label>
+                <br>
+                <select id="listaAlumnos" name="alumnoSeleccionado">
+                    <?php echo(listaUsuariosRol("A"))?>
+                </select>
+                <br>
+                <div id="actividadesAlumno"></div>
+                <br>
+                <button id="botonAlumno" class="waves-effect waves-light btn center"  disabled="disabled" value="">Registro de Actividades</button>
+            </form>
+        </div>
+        
+        <div class="col s12 m12 l4">
+            <form action="inscribirActividad.php" method="POST" enctype="multipart/form-data">
+                <label class="center"><h5>Voluntarios</h5></label>
+                <br>
+                <select id="listaVoluntarios" name="voluntarioSeleccionado">
+                    <?php echo(listaUsuariosRol("C"))?>
+                </select>
+                <br>
+                <div id="actividadesVoluntario"></div>
+                <br>
+                <button id="botonVoluntario" class="waves-effect waves-light btn center"  disabled="disabled" value="">Registro de Actividades</button>
+            </form>
+        </div>
+        
+        <div class="col s12 m12 l4">
+            <form action="inscribirActividad.php" method="POST" enctype="multipart/form-data">
+                <label class="center"><h5>Servicio Social</h5></label>
+                <br>
+                <select id="listaServicioSocial" name="servicioSocialSeleccionado">
+                    <?php echo(listaUsuariosRol("B"))?>
+                </select>
+                <br>
+                <div id="actividadesSericioSocial"></div>
+                <br>
+                <button id="botonServicioSocial" class="waves-effect waves-light btn center"  disabled="disabled" value="">Registro de Actividades</button>
+           </form>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<nav id="titulo" class="cyan">
+    <div class="container">
+        <div class="nav-wrapper"><a class="page-title">EDITAR INFORMACION ADMINISTRADOR</a></div>
+    </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarAdmin.php"><i class="material-icons cwhite" >arrow_back</i></a>
+
+<br>
+
+<div class="center-align blue-grey lighten-5">
+    <div class="container paddingTop z-depth-3 white">
+        <form  action="editarAdmin.php" method="POST" id="registroAdmin">
+            
+            
+            <?php echo formaEditarAdmin($_GET['id']) ?> 
+            
+            <div class="row">
+                <button type="submit" id="formaUsuario" class="btn waves-effect waves-light" name="action">
+                    Cambiar
+                </button>
+            </div>
+            
+        </form>
+        <br>
+    </div>
+    <br>
+</div>
+

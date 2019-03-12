@@ -1,0 +1,64 @@
+<nav id="titulo" class="cyan">
+        <div class="container">
+          <div class="nav-wrapper"><a class="page-title">REGISTRAR ORGANIZACIÓN</a></div>
+        </div>
+</nav>
+
+<a class="btn-large cyan top btn-flat" href="../controllers/consultarOrganizaciones.php"><i class="material-icons cwhite">arrow_back</i></a>
+<div class="center-align">
+    <div class="container paddingTop">
+        <form  action="registrarOrganizacion.php" method="POST" >
+            <div class="row">
+                <div class="col s0 m2 l3"></div>
+                <div class="col s12 m8 l6">
+                    <label for="nombreOrganizacion">
+                        Nombre
+                        <br>
+                        <span class = "error"><?php echo $orgErr;?></span>
+                    </label>
+                    <input list="nombreOrganizacion" name="nombreOrganizacion" data-length="30" value="<?php echo($_POST['nombreOrganizacion']) ?>" required>
+                    <datalist id="nombreOrganizacion" class='dropdown-content validate'>
+                        <?php echo(optionsDisplay()) ?>
+                    </datalist>
+                    <span class = "error"></span>
+                </div>
+                <div class="col s0 m2 l3"></div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col s0 m2 l3"></div>
+                <div class="col s12 m8 l6">
+                    <label>
+                        Tipo de Organizacion
+                    </label>
+                    <select name="tipoOrganizacion" id="tipoOrganizacion">
+                        <?php echo displayTipoOrga(0) ?>
+                    </select>
+                </div>
+                <div class="col s0 m2 l3"></div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col s0 m2 l3"></div>
+                <div class=" col s12 m4 l3">
+                    <label for="passOrganizacion" class="left-align">Clave Acceso</label>
+                    <input id="passOrganizacion" name="passOrganizacion" type="text" class="validate" data-length="8"
+                        pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,8}" value="<?php echo($_POST['passOrganizacion']) ?>"
+                        placeholder="Ejemplo: Escuela2" required>
+                </div>
+                <div class=" col s12 m4 l3">
+                    <label for="numHoras" class="left-align">Número de Horas</label>
+                    <input id="numHoras" name="numHoras" type="number" class="validate" min="1" max="480" value="<?php echo($_POST['numHoras']) ?>" required>
+                </div>
+                <div class="col s0 m2 l1"></div>
+            </div>
+            
+            <div class="row">
+                <input type="submit" class="btn waves-effect waves-light" name="enviar" id="enviar" value="Registrar">
+            </div>
+        </form>
+    </div>
+</div>
+
