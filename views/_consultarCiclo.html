@@ -1,12 +1,12 @@
 <nav id="titulo" class="cyan">
     <div class="container">
-        <div class="nav-wrapper"><a class="page-title">CICLO</a></div>
+        <div class="nav-wrapper"><a class="page-title">PERIOD</a></div>
     </div>
 </nav>
 
-<?php if ($_SESSION['cuenta']['rol'] == 'D'): ?>
+<!-- <?php if ($_SESSION['cuenta']['rol'] == 'D'): ?>
 <a href="../controllers/registrarCiclo.php" class="btn-floating btn-large lime bottomRight"><i class="material-icons">add</i></a>
-<?php endif ?>
+<?php endif ?> -->
 
 <br>
 <br>
@@ -22,54 +22,12 @@
                     <?php echo(infoCiclo()) ?>
                 </div>
                 <?php if ($_SESSION['cuenta']['rol'] == 'D'): ?>
-                <div class="card-action center-align">
+                <!-- <div class="card-action center-align">
                     <a style="color: #2598AA" href="editarCiclo.php"><i class="material-icons small">mode_edit</i></a>
-                </div>
+                </div> -->
                 <?php endif ?>
             </div>
         </div>
         <div class="col s0 m2 l3"></div>
     </div>
 </div>
-
-<!--<div class="row">-->
-<!--  <div class="col s0 m2 l3"></div>-->
-<!--  <div class="col s12 m8 l6">-->
-<!--    <h2 class="header center-align">Enero - Mayo 17</h2>-->
-<!--    <div class="card horizontal">-->
-<!--      <div class="card-image">-->
-<!--        <img src="http://lorempixel.com/100/190/nature/6">-->
-<!--      </div>-->
-<!--      <div class="card-stacked">-->
-<!--        <div class="card-content">-->
-<!--          <p>I am a very simple card. I am good at containing small bits of information.</p>-->
-<!--        </div>-->
-<!--        <div class="card-action">-->
-<!--          <a href="#">This is a link</a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col s0 m2 l3"></div>-->
-<!--</div>-->
-
-
-<!--<div class="row">-->
-<!--  <div class="col s0 m2 l3"></div>-->
-<!--  <div class="col s12 m8 l6">-->
-<!--    <div class="card">-->
-<!--      <div class="card-image waves-effect waves-block waves-light">-->
-<!--        <img class="activator center-align" src="http://lorempixel.com/100/190/nature/6" style="height: 200px; width:200px">-->
-<!--      </div>-->
-<!--      <div class="card-content">-->
-<!--        <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>-->
-<!--        <p><a href="#">This is a link</a></p>-->
-<!--      </div>-->
-<!--      <div class="card-reveal">-->
-<!--        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>-->
-<!--        <p>Here is some more information about this product that is only revealed once clicked on.</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col s0 m2 l3"></div>-->
-<!--</div>-->

@@ -2,66 +2,66 @@
     <li class="logo"><img class="logo" src="../images/logo.png"></img></li>
     <div id="info">
         <?php if ($_SESSION['cuenta']['rol'] == 'C'): ?>
-            <p class="noSpace"><strong>Voluntario</strong><br><br></p>
+            <p class="noSpace"><strong>Volunteer</strong><br><br></p>
         <?php endif ?>
-        <strong><p class="noSpace">Nombre:</p></strong>
+        <strong><p class="noSpace">Name:</p></strong>
         <p class="noSpace"><?php echo $_SESSION['cuenta']['nombre'];?> <?php echo $_SESSION['cuenta']['paterno']; ?></p>
         <br>
         <?php if ($_SESSION['cuenta']['rol'] == 'A'): ?>
-            <p class="noSpace"><strong>Cuenta:</strong><br> <?php echo $al['matricula'];?></p>
+            <p class="noSpace"><strong>Account:</strong><br> <?php echo $al['matricula'];?></p>
             <br>
-            <p class="noSpace"><strong>Padre/Madre:</strong><br> <?php echo $al['tutor'];?></p>
+            <p class="noSpace"><strong>Parent:</strong><br> <?php echo $al['tutor'];?></p>
             <br>
         <?php endif ?>
         <?php if ($_SESSION['cuenta']['rol'] == 'B'): ?>
-            <strong>Institución:</strong><br>
+            <strong>Institution:</strong><br>
             <p class="noSpace"><?php echo $org;?></p>
             <br>
         <?php endif ?>
-        
-        <strong>Usuario:</strong><br>
+
+        <strong>User:</strong><br>
         <p class="noSpace"><?php echo $_SESSION['cuenta']['email']; ?></p>
         <br>
     </div>
     <li><div class="divider"></div></li>
     <li>
-        <a href="../controllers/home.php">Inicio<i class="small material-icons">home</i></a>
+        <a href="../controllers/home.php">Home<i class="small material-icons">home</i></a>
     </li>
     <li>
         <div class="divider"></div>
     </li>
     <li>
-        <a href="../controllers/consultarCiclo.php">Ciclo<i class="small material-icons">today</i></a>
+        <a href="../controllers/consultarCiclo.php">Cicle<i class="small material-icons">today</i></a>
     </li>
-    <?php   
+    <?php
         include_once("moduloSesiones.php");
-        
+
         include_once("moduloCiclo.php");
     ?>
-    
+
     <?php  if(getFechaInicio()):  ?>
         <li>
-            <a href="../controllers/inscribirActividad.php">Registrar Actividad<i class="small material-icons">extension</i></a>
+            <a href="../controllers/inscribirActividad.php">Register Activity<i class="small material-icons">extension</i></a>
         </li>
     <?php  endif; ?>
     <li>
-        <a href="../controllers/actividadesRegistradas.php">Actividades Registradas<i class="small material-icons">view_list</i></a>
+        <a href="../controllers/actividadesRegistradas.php">Registered Activities<i class="small material-icons">view_list</i></a>
     </li>
     <li>
-        <a href="../controllers/changePassword.php">Cambiar Contraseña<i class="small material-icons">lock_outline</i></a>
+        <a href="../controllers/changePassword.php">Change Password<i class="small material-icons">lock_outline</i></a>
     </li>
     <li>
         <div class="divider"></div>
     </li>
-    <li>
+    <!-- <li>
         <a href="../controllers/ayuda.php">Ayuda<i class="small material-icons">live_help</i></a>
-    </li>
+    </li> -->
 
 </ul>
 
 <a href="#" data-activates="slide-out" class="button-collapse btn-large cyan top btn-flat cwhite"><i class="material-icons" style="color:white">menu</i></a>
   <!--<a href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large  lime accent-4 top"><i class="material-icons">menu</i></a>-->
-  
+
   <!--<a href="#" data-activates="slide-out" class="waves-effect waves-light btn button-collapse  lime accent-4 top"><i class="material-icons">menu</i></a>-->
 
     <!--<?php if(isset($_SESSION["cuenta"]["rol"]) && strcmp($_SESSION["cuenta"]["rol"],'A')): ?>-->
