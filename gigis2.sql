@@ -1,14 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:8889
--- Generation Time: Mar 14, 2019 at 12:12 PM
--- Server version: 5.7.25
--- PHP Version: 7.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Mar 12, 2019 at 10:27 AM
+-- Server version: 5.5.57-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `gigis`
@@ -22,8 +28,8 @@ USE `gigis`;
 -- Table structure for table `Actividad`
 --
 
-CREATE TABLE `Actividad` (
-  `idActividad` int(2) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Actividad` (
+  `idActividad` int(2) NOT NULL AUTO_INCREMENT,
   `dia` varchar(15) NOT NULL,
   `horaInicio` int(4) NOT NULL,
   `horaFin` int(4) NOT NULL,
@@ -33,15 +39,18 @@ CREATE TABLE `Actividad` (
   `cupoAlumnos` int(3) NOT NULL DEFAULT '1',
   `cupoColaboradores` int(3) NOT NULL DEFAULT '1',
   `nombreCiclo` varchar(20) NOT NULL,
-  `idPrograma` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idPrograma` int(3) NOT NULL,
+  PRIMARY KEY (`idActividad`),
+  KEY `fk_nombreCiclo` (`nombreCiclo`),
+  KEY `Actividad_ibfk_1` (`idPrograma`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `Actividad`
 --
 
 INSERT INTO `Actividad` (`idActividad`, `dia`, `horaInicio`, `horaFin`, `edadMin`, `edadMax`, `tipoActividad`, `cupoAlumnos`, `cupoColaboradores`, `nombreCiclo`, `idPrograma`) VALUES
-(45, 'Martes', 900, 1100, 10, 40, 'Grupal', 8, 4, 'Spring-Summer', 56);
+(45, 'Martes', 900, 1100, 4, 10, 'Grupal', 8, 4, 'Ciclo Verano Gigi''s ', 56);
 
 -- --------------------------------------------------------
 
@@ -49,10 +58,11 @@ INSERT INTO `Actividad` (`idActividad`, `dia`, `horaInicio`, `horaFin`, `edadMin
 -- Table structure for table `Alumno`
 --
 
-CREATE TABLE `Alumno` (
+CREATE TABLE IF NOT EXISTS `Alumno` (
   `NombreTutor` varchar(30) NOT NULL,
   `Matricula` varchar(15) NOT NULL,
-  `idUsuario` int(4) NOT NULL
+  `idUsuario` int(4) NOT NULL,
+  PRIMARY KEY (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -60,8 +70,9 @@ CREATE TABLE `Alumno` (
 --
 
 INSERT INTO `Alumno` (`NombreTutor`, `Matricula`, `idUsuario`) VALUES
-('Jorge', 'QWY1245-89', 2029),
-('Maria Stevens', '55268', 2051);
+('Maria de la Cruz', 'QWY1245-89', 2029),
+('Gabriela Rodriguez Moreno', '55267', 2050),
+('Alma Castañeda Angeles', '55268', 2051);
 
 -- --------------------------------------------------------
 
@@ -69,10 +80,11 @@ INSERT INTO `Alumno` (`NombreTutor`, `Matricula`, `idUsuario`) VALUES
 -- Table structure for table `Ciclo`
 --
 
-CREATE TABLE `Ciclo` (
+CREATE TABLE IF NOT EXISTS `Ciclo` (
   `nombreCiclo` varchar(40) NOT NULL DEFAULT '',
   `fechaInicio` date NOT NULL,
-  `fechaTermino` date NOT NULL
+  `fechaTermino` date NOT NULL,
+  PRIMARY KEY (`nombreCiclo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -80,7 +92,7 @@ CREATE TABLE `Ciclo` (
 --
 
 INSERT INTO `Ciclo` (`nombreCiclo`, `fechaInicio`, `fechaTermino`) VALUES
-('Spring-Summer', '2019-02-01', '2019-07-15');
+('Ciclo Verano Gigi''s ', '2017-05-15', '2017-07-07');
 
 -- --------------------------------------------------------
 
@@ -88,21 +100,29 @@ INSERT INTO `Ciclo` (`nombreCiclo`, `fechaInicio`, `fechaTermino`) VALUES
 -- Table structure for table `Organizacion`
 --
 
-CREATE TABLE `Organizacion` (
-  `idOrganizacion` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Organizacion` (
+  `idOrganizacion` int(10) NOT NULL AUTO_INCREMENT,
   `nombreOrganizacion` varchar(30) NOT NULL,
   `tipoOrganizacion` int(1) NOT NULL DEFAULT '2' COMMENT '1:Prepa , 2:Universidad',
   `claveAcceso` varchar(8) NOT NULL,
-  `horasCubiertas` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `horasCubiertas` int(4) NOT NULL,
+  PRIMARY KEY (`idOrganizacion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1039 ;
 
 --
 -- Dumping data for table `Organizacion`
 --
 
 INSERT INTO `Organizacion` (`idOrganizacion`, `nombreOrganizacion`, `tipoOrganizacion`, `claveAcceso`, `horasCubiertas`) VALUES
-(1002, 'ITESM', 2, 'Itesm019', 280),
-(1003, 'FHICT', 2, 'Fontys19', 280);
+(1002, 'Tec de Monterrey', 2, 'ITESM17a', 280),
+(1018, 'Thomas Jefferson', 1, 'ThJfer78', 50),
+(1019, 'Instituto La Paz', 1, 'LaPaz788', 50),
+(1028, 'Colegio Del Bosque', 1, 'DelBos17', 50),
+(1031, 'Colegio México Nuevo', 1, 'CMNasde8', 10),
+(1032, 'Maxei', 2, 'Maxei456', 45),
+(1036, 'Instituto Cumbres-Alpes', 1, 'CumAlp99', 15),
+(1037, 'Instituto Hernandez', 2, 'sa78887R', 300),
+(1038, 'Universidad Anahuac', 2, 'Anahuac1', 340);
 
 -- --------------------------------------------------------
 
@@ -110,9 +130,10 @@ INSERT INTO `Organizacion` (`idOrganizacion`, `nombreOrganizacion`, `tipoOrganiz
 -- Table structure for table `Permiso`
 --
 
-CREATE TABLE `Permiso` (
+CREATE TABLE IF NOT EXISTS `Permiso` (
   `idPermisos` int(10) NOT NULL DEFAULT '0',
-  `NombrePermiso` varchar(80) NOT NULL
+  `NombrePermiso` varchar(80) NOT NULL,
+  PRIMARY KEY (`idPermisos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -167,20 +188,21 @@ INSERT INTO `Permiso` (`idPermisos`, `NombrePermiso`) VALUES
 -- Table structure for table `Programa`
 --
 
-CREATE TABLE `Programa` (
-  `idPrograma` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Programa` (
+  `idPrograma` int(3) NOT NULL AUTO_INCREMENT,
   `nombrePrograma` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `descripcionPrograma` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `descripcionPrograma` varchar(140) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`idPrograma`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
 
 --
 -- Dumping data for table `Programa`
 --
 
 INSERT INTO `Programa` (`idPrograma`, `nombrePrograma`, `descripcionPrograma`) VALUES
-(56, 'Cooking', 'Cooking class'),
-(57, 'Spanish', 'Foreign language'),
-(58, 'Writting', 'Writting class');
+(56, 'Cocina', 'Programa recreativo donde los alumnos aprenden a cocinar platillos. '),
+(57, 'Español', ' '),
+(58, 'Lecto-Escritura', ' ');
 
 -- --------------------------------------------------------
 
@@ -188,9 +210,10 @@ INSERT INTO `Programa` (`idPrograma`, `nombrePrograma`, `descripcionPrograma`) V
 -- Table structure for table `Rol`
 --
 
-CREATE TABLE `Rol` (
+CREATE TABLE IF NOT EXISTS `Rol` (
   `idRoles` varchar(2) NOT NULL,
-  `NombreRoles` varchar(15) NOT NULL
+  `NombreRoles` varchar(15) NOT NULL,
+  PRIMARY KEY (`idRoles`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -209,9 +232,11 @@ INSERT INTO `Rol` (`idRoles`, `NombreRoles`) VALUES
 -- Table structure for table `RolesPermisos`
 --
 
-CREATE TABLE `RolesPermisos` (
+CREATE TABLE IF NOT EXISTS `RolesPermisos` (
   `idRoles` varchar(2) NOT NULL,
-  `idPermisos` int(11) NOT NULL
+  `idPermisos` int(11) NOT NULL,
+  PRIMARY KEY (`idRoles`,`idPermisos`),
+  KEY `fk_permisos` (`idPermisos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -289,10 +314,11 @@ INSERT INTO `RolesPermisos` (`idRoles`, `idPermisos`) VALUES
 -- Table structure for table `ServicioSocial`
 --
 
-CREATE TABLE `ServicioSocial` (
+CREATE TABLE IF NOT EXISTS `ServicioSocial` (
   `idUsuario` int(11) NOT NULL,
   `Semestre` int(2) NOT NULL,
-  `Matricula` varchar(15) NOT NULL
+  `Matricula` varchar(15) NOT NULL,
+  PRIMARY KEY (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -308,8 +334,8 @@ INSERT INTO `ServicioSocial` (`idUsuario`, `Semestre`, `Matricula`) VALUES
 -- Table structure for table `Usuario`
 --
 
-CREATE TABLE `Usuario` (
-  `idUsuario` int(4) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Usuario` (
+  `idUsuario` int(4) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `ApellidoPaterno` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `ApellidoMaterno` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -317,19 +343,22 @@ CREATE TABLE `Usuario` (
   `CorreoElectronico` varchar(50) CHARACTER SET latin1 NOT NULL,
   `Password` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `Telefono` varchar(15) CHARACTER SET latin1 NOT NULL,
-  `idRoles` varchar(2) CHARACTER SET latin1 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idRoles` varchar(2) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  KEY `fk_idRoles` (`idRoles`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2146 ;
 
 --
 -- Dumping data for table `Usuario`
 --
 
 INSERT INTO `Usuario` (`idUsuario`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `fechaNacimiento`, `CorreoElectronico`, `Password`, `Telefono`, `idRoles`) VALUES
-(2000, 'Valter', 'Núñez', 'Vazquez', '1996-10-19', 'b@b.com', '$2y$10$ai9wq7b8SUa5Au/OLqKj6e8Tp1V5FMPc19eg5Ba5RGu9hYmdyFHyq', '4422471344', 'B'),
-(2003, 'Johanna', 'Lampard', 'W.', '1992-05-02', 'c@c.com', '$2y$10$irUHvM293P3SWOkfpnq4jO1flnuDxib28LINwgDy3gwlPKtEBO6IO', '4421141523', 'C'),
-(2029, 'Juan', 'Alivaba', 'Shrowddinger', '1992-09-07', 'a@a.com', '$2y$10$6rAUFGlb86wm7xI7IE.ZgeB..dk5j29ht564tinNbN/lLMauMCdpy', '7222468957', 'A'),
+(2000, 'Valter', 'Núñez', 'Vazquez', '1996-10-19', 'b@b.com', '$2y$10$F8.nVR/680NHAkzlhn443eKeRiBugtEUfVcaDp6YbLplO1/oRRkJq', '4422471344', 'B'),
+(2003, 'Maria', 'Gomez', 'Vazquez', '1992-05-02', 'c@c.com', '$2y$10$Eu.8HNm/v0KDNyx71jfPf.qp9CtQLEO8/pnVHlajTt0GfJ/pa6Qu2', '4421141523', 'C'),
+(2029, 'Juan', 'Alivaba', 'Shrowddinger', '1992-09-07', 'a@a.com', '$2y$10$THXIUFAGx61tzgGtvr0D.OukUe6pc6lwt9BFQ1VeV0Q1icQJ./86m', '7222468957', 'A'),
 (2041, 'Admin', 'Last', 'Name', '1987-11-05', 'admin@mail.com', '$2y$10$unOAFu8Acz2aUcST3hsWXunyzXnTyKdlCXvxwSQ5NhkZtXZEWaNii', '064421591100', 'D'),
-(2051, 'Student#1', 'Wilkings', 'Shëppard', '1994-01-26', 'maria@gigismexico.com', '$2y$10$oHm7KGWQ.ftSnRY0NGb3neseS0mx2krPElGto.I96Rg.J/XBVUHVa', '981277232', 'A');
+(2050, 'Alexander', 'Montiel', 'Rodríguez', '2012-10-30', 'alexandermontiel@gigismexico.com', '$2y$10$rOO6Fe9sganDd6h1jUg0aOpNasxijcMH2fyq1no4jNzKfsnQ7YEdq', '123343133', 'A'),
+(2051, 'Alma Angélica', 'Gaspar', 'Castañeda', '1994-01-26', 'almagaspar@gigismexico.com', '$2y$10$.RQF9hASsPqU0QFFODHJ.uARdyBlJPQ2cW8dzXQtjvYj/g7E22Nlu', '981277232', 'A');
 
 -- --------------------------------------------------------
 
@@ -337,9 +366,11 @@ INSERT INTO `Usuario` (`idUsuario`, `Nombre`, `ApellidoPaterno`, `ApellidoMatern
 -- Table structure for table `UsuarioActividad`
 --
 
-CREATE TABLE `UsuarioActividad` (
+CREATE TABLE IF NOT EXISTS `UsuarioActividad` (
   `idUsuario` int(4) NOT NULL,
-  `idActividad` int(2) NOT NULL
+  `idActividad` int(2) NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idActividad`),
+  KEY `UsuarioActividad_ibfk_2` (`idActividad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -348,8 +379,7 @@ CREATE TABLE `UsuarioActividad` (
 
 INSERT INTO `UsuarioActividad` (`idUsuario`, `idActividad`) VALUES
 (2000, 45),
-(2003, 45),
-(2029, 45);
+(2003, 45);
 
 -- --------------------------------------------------------
 
@@ -357,9 +387,11 @@ INSERT INTO `UsuarioActividad` (`idUsuario`, `idActividad`) VALUES
 -- Table structure for table `UsuarioOrganizacion`
 --
 
-CREATE TABLE `UsuarioOrganizacion` (
+CREATE TABLE IF NOT EXISTS `UsuarioOrganizacion` (
   `idUsuario` int(4) NOT NULL,
-  `idOrganizacion` int(4) NOT NULL
+  `idOrganizacion` int(4) NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idOrganizacion`),
+  KEY `fk_organizacion` (`idOrganizacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -367,7 +399,8 @@ CREATE TABLE `UsuarioOrganizacion` (
 --
 
 INSERT INTO `UsuarioOrganizacion` (`idUsuario`, `idOrganizacion`) VALUES
-(2000, 1002);
+(2000, 1002),
+(2003, 1019);
 
 -- --------------------------------------------------------
 
@@ -375,9 +408,10 @@ INSERT INTO `UsuarioOrganizacion` (`idUsuario`, `idOrganizacion`) VALUES
 -- Table structure for table `Voluntario`
 --
 
-CREATE TABLE `Voluntario` (
+CREATE TABLE IF NOT EXISTS `Voluntario` (
   `idUsuario` int(4) NOT NULL,
-  `Ocupacion` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `Ocupacion` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -385,123 +419,7 @@ CREATE TABLE `Voluntario` (
 --
 
 INSERT INTO `Voluntario` (`idUsuario`, `Ocupacion`) VALUES
-(2003, 'Therapist');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Actividad`
---
-ALTER TABLE `Actividad`
-  ADD PRIMARY KEY (`idActividad`),
-  ADD KEY `fk_nombreCiclo` (`nombreCiclo`),
-  ADD KEY `Actividad_ibfk_1` (`idPrograma`);
-
---
--- Indexes for table `Alumno`
---
-ALTER TABLE `Alumno`
-  ADD PRIMARY KEY (`idUsuario`);
-
---
--- Indexes for table `Ciclo`
---
-ALTER TABLE `Ciclo`
-  ADD PRIMARY KEY (`nombreCiclo`);
-
---
--- Indexes for table `Organizacion`
---
-ALTER TABLE `Organizacion`
-  ADD PRIMARY KEY (`idOrganizacion`);
-
---
--- Indexes for table `Permiso`
---
-ALTER TABLE `Permiso`
-  ADD PRIMARY KEY (`idPermisos`);
-
---
--- Indexes for table `Programa`
---
-ALTER TABLE `Programa`
-  ADD PRIMARY KEY (`idPrograma`);
-
---
--- Indexes for table `Rol`
---
-ALTER TABLE `Rol`
-  ADD PRIMARY KEY (`idRoles`);
-
---
--- Indexes for table `RolesPermisos`
---
-ALTER TABLE `RolesPermisos`
-  ADD PRIMARY KEY (`idRoles`,`idPermisos`),
-  ADD KEY `fk_permisos` (`idPermisos`);
-
---
--- Indexes for table `ServicioSocial`
---
-ALTER TABLE `ServicioSocial`
-  ADD PRIMARY KEY (`idUsuario`);
-
---
--- Indexes for table `Usuario`
---
-ALTER TABLE `Usuario`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD KEY `fk_idRoles` (`idRoles`);
-
---
--- Indexes for table `UsuarioActividad`
---
-ALTER TABLE `UsuarioActividad`
-  ADD PRIMARY KEY (`idUsuario`,`idActividad`),
-  ADD KEY `UsuarioActividad_ibfk_2` (`idActividad`);
-
---
--- Indexes for table `UsuarioOrganizacion`
---
-ALTER TABLE `UsuarioOrganizacion`
-  ADD PRIMARY KEY (`idUsuario`,`idOrganizacion`),
-  ADD KEY `fk_organizacion` (`idOrganizacion`);
-
---
--- Indexes for table `Voluntario`
---
-ALTER TABLE `Voluntario`
-  ADD PRIMARY KEY (`idUsuario`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Actividad`
---
-ALTER TABLE `Actividad`
-  MODIFY `idActividad` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
---
--- AUTO_INCREMENT for table `Organizacion`
---
-ALTER TABLE `Organizacion`
-  MODIFY `idOrganizacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1039;
-
---
--- AUTO_INCREMENT for table `Programa`
---
-ALTER TABLE `Programa`
-  MODIFY `idPrograma` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
-
---
--- AUTO_INCREMENT for table `Usuario`
---
-ALTER TABLE `Usuario`
-  MODIFY `idUsuario` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2052;
+(2003, 'Terapeuta');
 
 --
 -- Constraints for dumped tables
@@ -557,3 +475,7 @@ ALTER TABLE `UsuarioOrganizacion`
 --
 ALTER TABLE `Voluntario`
   ADD CONSTRAINT `Voluntario_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `Usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
