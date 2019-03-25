@@ -1,26 +1,26 @@
 <?php
-     
+
      //-------------------------------ADMIN-----------------------------------------------------------------/
        function listaAdmin(){
         $connect = connect();
-            
+
         $query =    "SELECT *
                     FROM Usuario U
                     WHERE U.idRoles='D'
                     ORDER BY U.ApellidoPaterno";
-                
+
         $result = mysqli_query($connect, $query);
-        
+
         $tabla = "Usuario";
-        
+
         $table.=    '<br><br>
                     <ul class="collapsible" data-collapsible="expandable">';
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $fechaNacimiento = date_create($row['fechaNacimiento']);
             $fechaNacimiento = date_format($fechaNacimiento, 'd \d\e F \d\e Y');
-            
+
             $table .= ' <li>
                             <div class="collapsible-header">
                                 <strong>'. $row['ApellidoPaterno'] .' '. $row['ApellidoMaterno'] .' '. $row['Nombre'] .'</strong>
@@ -34,71 +34,71 @@
                                 <br>
                                 <div class="right">
                                     <a href="editarAdmin.php?id=' . $row["idUsuario"] . '"><i class="material-icons">mode_edit</i></a>
-                                    <a><i class="material-icons delete" style="cursor:pointer" 
+                                    <a><i class="material-icons delete" style="cursor:pointer"
                                     onclick=borrarItem('. $row['idUsuario'] .',"'. $tabla .'") >delete</i></a>
                                 </div>
                             </div>
                         </li>';
         }
-        
+
         $table .= '</ul>';
-        
-        
-        
+
+
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-    
+
         return $table;
-    
+
     }
-     
-    
+
+
     function nuevoAdmin($nombre, $apellP, $apellM, $correo, $tel, $fechaN, $pass){
-        
+
         $connect = connect();
-            
-        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono, 
-                fechaNacimiento, Password, idRoles) 
+
+        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono,
+                fechaNacimiento, Password, idRoles)
                 VALUES (?,?,?,?,?,?,?,?)';
-                    
+
         $rol = "D";
-        
-        // Preparing the statement 
+
+        // Preparing the statement
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
        if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $pass, $rol)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         //var_dump($statement);
-        
+
        disconnect($connect);
-        
-        
+
+
     }
-    
-    
+
+
     function formaEditarAdmin($id){
-        
+
         $connect = connect();
-        
+
         $query =    "SELECT *
                     FROM Usuario U
                     WHERE U.idUsuario = ". $id
                     ;
-                    
+
         $result = mysqli_query($connect, $query);
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m8 l8">
@@ -109,7 +109,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m4 l4">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -137,7 +137,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                    
+
             // $form .= '<div class="row">
             //             <div class="col s6 m2 l2"></div>
             //             <div class="col s12 m8 l8">
@@ -148,7 +148,7 @@
             //             </div>
             //             <div class="col s6 m2 l2"></div>
             //         </div>';
-                    
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -160,7 +160,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -171,7 +171,7 @@
                         </div>
                         <div class="col s12 m2 l2"></div>
                     </div>';
-                    
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -180,7 +180,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -190,7 +190,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>';
-                      
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -198,93 +198,93 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
         }
-        
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-            
+
         return $form;
-        
+
     }
-    
+
     function guardarAdmin($id, $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $newP) {
-        
+
         $connect = connect();
-        
+
         if($newP){
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=?, Password=? WHERE idUsuario=?";
-            
+
         }else{
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=? WHERE idUsuario=?";
-            
+
         }
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        
-        // Binding statement params 
+
+        // Binding statement params
         if($newP){
-            
+
             if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $newP, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
-            
+
         }else{
-            
+
             if (!$statement->bind_param("sssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
         }
-        
+
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
-        
-        
+
+
         //mysqli_free_result($result);
-        
+
         disconnect($connect);
-        
+
     }
      //------------------------------------------------------------------------------------------------------/
-     
-     
-     
-     
-     
+
+
+
+
+
      // -------------------------------ALUMNOS-----------------------------------------------------------------------------------//
-     
-     
+
+
      function listaAlumnos(){
         $connect = connect();
-            
+
         $query =    "SELECT *
                     FROM Usuario U, Alumno A
                     WHERE U.idUsuario = A.idUsuario
                     ORDER BY U.ApellidoPaterno";
-                
+
         $result = mysqli_query($connect, $query);
-        
+
         $tabla = "Alumno";
-        
+
         $table.=    '<br><br>
                     <ul class="collapsible" data-collapsible="expandable">';
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $fechaNacimiento = date_create($row['fechaNacimiento']);
             $fechaNacimiento = date_format($fechaNacimiento, 'd \d\e F \d\e Y');
-            
+
             $table .= ' <li>
                             <div class="collapsible-header">
                                 <strong>'. $row['ApellidoPaterno'] .' '. $row['ApellidoMaterno'] .' '. $row['Nombre'] .'</strong>
@@ -304,89 +304,89 @@
                                 <br>
                                 <div class="right">
                                     <a href="editarAlumno.php?id=' . $row["idUsuario"] . '"><i class="material-icons">mode_edit</i></a>
-                                    <a><i class="material-icons delete" style="cursor:pointer" 
+                                    <a><i class="material-icons delete" style="cursor:pointer"
                                     onclick=borrarItem('. $row['idUsuario'] .',"'. $tabla .'") >delete</i></a>
                                 </div>
                             </div>
                         </li>';
         }
-        
+
         $table .= '</ul>';
-        
-        
-        
+
+
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-    
+
         return $table;
-    
+
     }
-     
-    
+
+
     function nuevoAlumno($nombre, $apellP, $apellM, $correo, $tel, $fechaN, $tutor, $matr, $pass){
-        
+
         $connect = connect();
-            
-        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono, 
-                fechaNacimiento, Password, idRoles) 
+
+        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono,
+                fechaNacimiento, Password, idRoles)
                 VALUES (?,?,?,?,?,?,?,?)';
-                    
+
         $rol = "A";
-        
-        // Preparing the statement 
+
+        // Preparing the statement
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
        if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $pass, $rol)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // var_dump($statement);
-        
+
         $last_id = $connect->insert_id;
-        
-        $query='    INSERT INTO Alumno (idUsuario, NombreTutor, Matricula) 
+
+        $query='    INSERT INTO Alumno (idUsuario, NombreTutor, Matricula)
                     VALUES (?,?,?)';
-                    
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
         if (!$statement->bind_param("sss", $last_id, $tutor, $matr)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
-    
+
+
         disconnect($connect);
-        
-        
+
+
     }
-    
-    
+
+
     function formaEditarAlumno($id){
-        
+
         $connect = connect();
-        
+
         $query =    "SELECT *
                     FROM Usuario U, Alumno A
                     WHERE U.idUsuario = A.idUsuario
                     AND U.idUsuario = ". $id ;
-                    
+
         $result = mysqli_query($connect, $query);
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m8 l8">
@@ -397,7 +397,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m4 l4">
@@ -414,7 +414,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -425,7 +425,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                    
+
             $form .= '<div class="row">
                         <div class="col s6 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -436,7 +436,7 @@
                         </div>
                         <div class="col s6 m2 l2"></div>
                     </div>';
-                    
+
             $form .=    '<div class="row">
                             <div class="col s0 m2 l2"></div>
                             <div class="col s12 m8 l8">
@@ -445,7 +445,7 @@
                             </div>
                             <div class="col s0 m2 l2"></div>
                         </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -457,7 +457,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -468,7 +468,7 @@
                         </div>
                         <div class="col s12 m2 l2"></div>
                     </div>';
-                    
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -477,7 +477,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -487,7 +487,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>';
-                      
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -495,110 +495,110 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
         }
-        
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-            
+
         return $form;
-        
+
     }
-    
+
     function guardarAlumno($id, $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $nomTutor, $matr, $newP) {
-        
+
         $connect = connect();
-        
+
         if($newP){
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=?, Password=? WHERE idUsuario=?";
-            
+
         }else{
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=? WHERE idUsuario=?";
-            
+
         }
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        
-        // Binding statement params 
+
+        // Binding statement params
         if($newP){
-            
+
             if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $newP, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
-            
+
         }else{
-            
+
             if (!$statement->bind_param("sssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
         }
-        
+
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
-        
-        
-        
-        
+
+
+
+
         $query="UPDATE Alumno  SET NombreTutor=?, Matricula=?  WHERE idUsuario=?";
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        // Binding statement params 
-            
+        // Binding statement params
+
         if (!$statement->bind_param("sss", $nomTutor, $matr, $id)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
 
         //mysqli_free_result($result);
-        
+
         disconnect($connect);
-        
+
     }
-     
+
      // -----------------------------------------------------------------------------------------------------------------------------//
-     
+
      // -------------------------------VOLUNTARIOS-----------------------------------------------------------------------------------//
-     
-     
+
+
      function listaVoluntarios(){
-        
+
         $connect = connect();
-            
+
         $query =    "SELECT *
                     FROM Usuario U, Voluntario V
                     WHERE U.idUsuario = V.idUsuario
                     ORDER BY U.ApellidoPaterno";
-                
+
         $result = mysqli_query($connect, $query);
-        
+
         $tabla = "Voluntario";
-        
+
         $table.=    '<br><br>
                     <ul class="collapsible" data-collapsible="expandable">';
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $fechaNacimiento = date_create($row['fechaNacimiento']);
             $fechaNacimiento = date_format($fechaNacimiento, 'd \d\e F \d\e Y');
-            
+
             $table .= ' <li>
                             <div class="collapsible-header">
                                 <strong>'. $row['ApellidoPaterno'] .' '. $row['ApellidoMaterno'] .' '. $row['Nombre'] .'</strong> (  '. $row['Ocupacion'] .'  )
@@ -612,40 +612,40 @@
                                 <br>
                                 <div class="right">
                                     <a href="editarVoluntario.php?id=' . $row["idUsuario"] . '"><i class="material-icons">mode_edit</i></a>
-                                    <a><i class="material-icons delete" style="cursor:pointer" 
+                                    <a><i class="material-icons delete" style="cursor:pointer"
                                     onclick=borrarItem('. $row['idUsuario'] .',"'. $tabla .'") >delete</i></a>
                                 </div>
                             </div>
                         </li>';
         }
-        
+
         $table .= '</ul>';
-        
-        
-        
+
+
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-    
+
         return $table;
-        
-        
+
+
     }
-    
-    
+
+
     function formaEditarVoluntario($id){
-        
+
         $connect = connect();
-        
+
         $query =    "SELECT *
                     FROM Usuario U, Voluntario V
                     WHERE U.idUsuario = V.idUsuario
                     AND U.idUsuario = ". $id ;
-                    
+
         $result = mysqli_query($connect, $query);
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m8 l8">
@@ -656,7 +656,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m4 l4">
@@ -673,7 +673,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-                
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -685,7 +685,7 @@
                         </div>
                         <div class="col s12 m2 l2"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -697,7 +697,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -708,7 +708,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -719,7 +719,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                    
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -728,7 +728,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -738,7 +738,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>';
-                      
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -746,160 +746,160 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
         }
-        
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-            
+
         return $form;
-        
+
     }
-    
+
     function guardarVoluntario($id, $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $ocup, $newP) {
-        
+
         $connect = connect();
-        
+
         if($newP){
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=?, Password=? WHERE idUsuario=?";
-            
+
         }else{
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=? WHERE idUsuario=?";
-            
+
         }
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        
-        // Binding statement params 
+
+        // Binding statement params
         if($newP){
-            
+
             if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $newP, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
-            
+
         }else{
-            
+
             if (!$statement->bind_param("sssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
         }
-        
+
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
-        
-        
-        
-        
+
+
+
+
         $query="UPDATE Voluntario  SET Ocupacion=?  WHERE idUsuario=?";
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        // Binding statement params 
-            
+        // Binding statement params
+
         if (!$statement->bind_param("ss", $ocup, $id)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
 
         //mysqli_free_result($result);
-        
+
         disconnect($connect);
-        
+
     }
-    
-    
+
+
     function nuevoVoluntario($nombre, $apellP, $apellM, $correo, $tel, $fechaN, $ocupacion, $pass){
-        
+
         $connect = connect();
-            
-        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono, 
-                fechaNacimiento, Password, idRoles) 
+
+        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono,
+                fechaNacimiento, Password, idRoles)
                 VALUES (?,?,?,?,?,?,?,?)';
-                    
+
         $rol = "C";
-        
-        // Preparing the statement 
+
+        // Preparing the statement
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        
+
         // Binding statement params
         if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $pass, $rol)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // var_dump($statement);
-        
+
         $last_id = $connect->insert_id;
-        
-        $query='    INSERT INTO Voluntario (idUsuario, Ocupacion) 
+
+        $query='    INSERT INTO Voluntario (idUsuario, Ocupacion)
                     VALUES (?,?)';
-                    
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
         if (!$statement->bind_param("ss", $last_id, $ocupacion)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
-    
+
+
         disconnect($connect);
-        
-        
+
+
     }
-    
-    
+
+
     // ------------------------------------------------------------------------------------------------------------------------------//
-    
+
      // -------------------------------SERVICIO SOCIAL-----------------------------------------------------------------------------------//
-     
-    
+
+
      function listaServicioSocial(){
         $connect = connect();
-            
+
         $query =    "SELECT *
                     FROM Usuario U, ServicioSocial S, UsuarioOrganizacion UO, Organizacion O
                     WHERE U.idUsuario = S.idUsuario
                     AND U.idUsuario = UO.idUsuario
                     AND UO.idOrganizacion = O.idOrganizacion
                     ORDER BY U.apellidoPaterno";
-                
+
         $result = mysqli_query($connect, $query);
-        
+
         $tabla = "ServicioSocial";
-        
+
         $table.=    '<br><br>
                     <ul class="collapsible" data-collapsible="expandable">';
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $fechaNacimiento = date_create($row['fechaNacimiento']);
             $fechaNacimiento = date_format($fechaNacimiento, 'd \d\e F \d\e Y');
             if($row['tipoOrganizacion'] == 1){
@@ -907,7 +907,7 @@
             }else{
                 $tipoOrg = "Universidad";
             }
-            
+
             $table .= ' <li>
                             <div class="collapsible-header">
                                 <strong>'. $row['ApellidoPaterno'] .' '. $row['ApellidoMaterno'] .' '. $row['Nombre'] .'</strong> ('. $row['nombreOrganizacion'] .'  )
@@ -921,105 +921,105 @@
                                 <br>
                                 <i class = "small material-icons">format_color_text</i> &nbsp &nbsp <strong>'. $row['Matricula'] .' </strong>
                                 <br>
-                                <i class = "small material-icons">school</i> 
-                                    &nbsp &nbsp 
+                                <i class = "small material-icons">school</i>
+                                    &nbsp &nbsp
                                     <strong>'. $tipoOrg .' - '. $row['Semestre'] .'° semestre </strong>
                                 <br>
                                 <i class = "small material-icons">alarm</i> &nbsp &nbsp <strong>'. $row['horasCubiertas'] .' Horas Servicio</strong>
                                 <div class="right">
                                     <a href="editarServicioSocial.php?id=' . $row["idUsuario"] . '"><i class="material-icons">mode_edit</i></a>
-                                    <a><i class="material-icons delete" style="cursor:pointer" 
+                                    <a><i class="material-icons delete" style="cursor:pointer"
                                     onclick=borrarItem('. $row['idUsuario'] .',"'. $tabla .'") >delete</i></a>
                                 </div>
                             </div>
                         </li>';
         }
-        
+
         $table .= '</ul>';
-        
-        
-        
+
+
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-    
+
         return $table;
-        
-    
+
+
     }
-    
-    
+
+
     function nuevoSS($nombre, $apellP, $apellM, $correo, $tel, $fechaN, $idOrg, $semestre, $matr, $pass){
-        
+
         $connect = connect();
-            
-        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono, 
-                fechaNacimiento, Password, idRoles) 
+
+        $query='    INSERT INTO Usuario (Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Telefono,
+                fechaNacimiento, Password, idRoles)
                 VALUES (?,?,?,?,?,?,?,?)';
-                    
+
         $rol = "B";
-        
-        // Preparing the statement 
+
+        // Preparing the statement
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
        if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $pass, $rol)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // var_dump($statement);
-        
+
         $last_id = $connect->insert_id;
-        
-        $query='    INSERT INTO ServicioSocial (idUsuario, Semestre, Matricula) 
+
+        $query='    INSERT INTO ServicioSocial (idUsuario, Semestre, Matricula)
                     VALUES (?,?,?)';
-                    
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
         if (!$statement->bind_param("sss", $last_id, $semestre, $matr)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         // var_dump($statement);
-        
-        $query='    INSERT INTO UsuarioOrganizacion (idUsuario, idOrganizacion) 
+
+        $query='    INSERT INTO UsuarioOrganizacion (idUsuario, idOrganizacion)
                     VALUES (?,?)';
-                    
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $connect->errno . ") " . $connect->error);
         }
-        // Binding statement params 
+        // Binding statement params
         if (!$statement->bind_param("ss", $last_id, $idOrg)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
         // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
-    
+
+
         disconnect($connect);
-        
-        
+
+
     }
-    
-    
+
+
     function formaEditarSS($id){
-        
+
         $connect = connect();
-        
+
         $query =    "SELECT *
                     FROM Usuario U, ServicioSocial SS, Organizacion O, UsuarioOrganizacion UO
                     WHERE U.idUsuario = SS.idUsuario
@@ -1027,11 +1027,11 @@
                     AND UO.idOrganizacion = O.idOrganizacion
                     AND U.idUsuario = " . $id ."
                     ORDER BY U.ApellidoPaterno";
-                    
+
         $result = mysqli_query($connect, $query);
-        
+
         while($row = mysqli_fetch_array($result)){
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m8 l8">
@@ -1042,7 +1042,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .=    '<div class="row">
                             <div class="col s6 m2 l2"></div>
                             <div class="col s12 m4 l4">
@@ -1059,7 +1059,7 @@
                             </div>
                             <div class="col s6 m2 l2"></div>
                         </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1070,7 +1070,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1082,7 +1082,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-                
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1093,7 +1093,7 @@
                         </div>
                         <div class="col s12 m2 l2"></div>
                     </div>';
-                    
+
             $form.= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1104,7 +1104,7 @@
                         </div>
                         <div class="col s12 m2 l3"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1113,7 +1113,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1122,7 +1122,7 @@
                         </div>
                         <div class="col s12 m2 l3"></div>
                     </div>';
-            
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1131,7 +1131,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1141,7 +1141,7 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                       </div>';
-                      
+
             $form .= '<div class="row">
                         <div class="col s0 m2 l2"></div>
                         <div class="col s12 m8 l8">
@@ -1149,179 +1149,179 @@
                         </div>
                         <div class="col s0 m2 l2"></div>
                     </div>';
-            
+
         }
-        
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-            
+
         return $form;
-        
+
     }
-    
+
     function guardarSS($id, $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $organ, $semestre, $matr, $newP) {
-        
+
         $connect = connect();
-        
+
         if($newP){
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=?, Password=? WHERE idUsuario=?";
-            
+
         }else{
-            
-            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?, 
+
+            $query="UPDATE Usuario SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Telefono=?,
             fechaNacimiento=? WHERE idUsuario=?";
-            
+
         }
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        
-        // Binding statement params 
+
+        // Binding statement params
         if($newP){
-            
+
             if (!$statement->bind_param("ssssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $newP, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
-            
+
         }else{
-            
+
             if (!$statement->bind_param("sssssss", $nombre, $apellP, $apellM, $correo, $tel, $fechaN, $id)) {
-                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+                die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
             }
         }
-        
+
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
-        
-        
-        
+
+
+
         $query="UPDATE ServicioSocial  SET Semestre=?, Matricula=?  WHERE idUsuario=?";
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        // Binding statement params 
-            
+        // Binding statement params
+
         if (!$statement->bind_param("sss", $semestre, $matr, $id)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-          
+        }
+
         // var_dump($statement);
-        
-        
+
+
 
         $query="UPDATE UsuarioOrganizacion  SET idOrganizacion=? WHERE idUsuario=?";
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        // Binding statement params 
-            
+        // Binding statement params
+
         if (!$statement->bind_param("ss", $organ, $id)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
-        } 
-        
+        }
+
         // var_dump($statement);
-        
+
         disconnect($connect);
-        
+
     }
-    
-    
-    
+
+
+
     function listaOrganizaciones($idOrg){
-        
+
         $connect = connect();
-        
+
         $query = "  SELECT *
                     FROM Organizacion
                     ORDER BY nombreOrganizacion";
-        
+
         $result = mysqli_query($connect, $query);
-        
+
         if(!$idOrg){
-            
+
             $options = "<option value='' disabled selected>Selecciona una opción</option>";
-            
+
             while($row = mysqli_fetch_array($result)){
-            
+
                 $options .= '<option value="'. $row['idOrganizacion']  .'">'. $row['nombreOrganizacion']  . '</option>';
-                
+
             }
         }else{
-            
+
             $options = "<option value='' disabled>Selecciona una opción</option>";
-            
+
             while($row = mysqli_fetch_array($result)){
-                
+
                 if($row['idOrganizacion'] == $idOrg){
-                    
+
                     $options .= '<option value="'. $row['idOrganizacion']  .'" selected>'. $row['nombreOrganizacion']  . '</option>';
-                    
+
                 }else{
-                    
+
                     $options .= '<option value="'. $row['idOrganizacion']  .'">'. $row['nombreOrganizacion']  . '</option>';
                 }
-            
-                
-                
+
+
+
             }
-            
-            
+
+
         }
-        
-        
-        
+
+
+
         mysqli_free_result($result);
-        
+
         disconnect($connect);
-    
+
         return $options;
-        
-        
+
+
     }
-     
-     
+
+
     // ------------------------------------------------------------------------------------------------------------------------------//
-    
+
     // -------------------------------------------------CHANGE PASSWORD--------------------------------------------------------------//
     
     function changePassword($id, $newPass){
-        
+
         $connect = connect();
-            
+
         $query="UPDATE Usuario SET Password=? WHERE idUsuario=?";
-        
+
         if (!($statement = $connect->prepare($query))) {
             die("Preparation failed: (" . $mysql->errno . ") " . $mysql->error);
         }
-        
+
         // Binding statement params
         if (!$statement->bind_param("ss", $newPass, $id)) {
-            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error); 
+            die("Parameter vinculation failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
          // Executing the statement
         if (!$statement->execute()) {
             die("Execution failed: (" . $statement->errno . ") " . $statement->error);
         }
-        
+
         disconnect($connect);
-        
+
     }

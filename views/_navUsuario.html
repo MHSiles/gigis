@@ -39,6 +39,11 @@
         include_once("moduloCiclo.php");
     ?>
 
+    <?php if ($_SESSION['cuenta']['rol'] == 'A'): ?>
+        <li>
+          <a href="../controllers/consultarProgramas.php">Programs<i class="small material-icons">dns</i></a>
+        </li>
+    <?php  endif; ?>
     <?php  if(getFechaInicio()):  ?>
         <li>
             <a href="../controllers/inscribirActividad.php">Register Activity<i class="small material-icons">extension</i></a>

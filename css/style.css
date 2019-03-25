@@ -74,32 +74,32 @@
 }
 
 .paddingTop {
-  padding-top:70px;
+  padding-top:50px;
 }
 
 .logo{
     width: 200px;
     display: block;
     margin: auto;
-    
+
 }
 
 #bg {
     z-index: -1;
-  position: fixed; 
-  top: -50%; 
-  left: -50%; 
-  width: 200%; 
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
   height: 200%;
 }
 
 #bg img {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  margin: auto; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   min-width: 50%;
   min-height: 50%;
 }
@@ -168,7 +168,7 @@ form {
 
 .lefty{
   float:left;
-  
+
 }
 
 .involucrados{

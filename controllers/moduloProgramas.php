@@ -10,41 +10,115 @@
 
         $connect = connect();
 
-        $query = "SELECT * FROM Programa ORDER BY nombrePrograma";
+        $query = "SELECT idPrograma, nombrePrograma, descripcionPrograma FROM Programa ORDER BY nombrePrograma";
 
         $result = mysqli_query($connect, $query);
 
         $tabla = "Programa";
 
         $var =  '<div class="container paddingTop">
-              <br>
-              <div class="row">
-                <div class="col s0 m2 l3"></div>
-                <div class="col s12 m8 l6">
-                  <table class="striped">
-                    <thead>
-                      <tr>
-                        <th colspan="2">Nombre</th>
-                      </tr>
-                    </thead>';
+                  <br>
+                  <div class="row">
+                    <div class="col s0 m2 l3"></div>
+                    <div class="col s12 m8 l6">
+                      <table class="striped">
+                        <thead>
+                          <tr>
+                            <th colspan="3">Nombre</th>
+                          </tr>
+                        </thead>';
 
         while($row = mysqli_fetch_array($result)){
-
-            // <a href='consultarProgramas.php?id=" . $row["idPrograma"] . "'>
-
-
-
             $var.= "<tr>
-                        <td hidden>". $row['idPrograma'] ."</td>";
+                        <td>". $row['idPrograma'] ."</td>";
             $var.= "    <td>" . $row['nombrePrograma'] . "</td>";
+            $var.= "    <td>" . $row['descripcionPrograma'] . "</td>";
             $var.= "    <td style='text-align: center'>";
-                            // <a href='editarPrograma.php?id=" . $row["idPrograma"] . "'><i class='material-icons'>mode_edit</i></a>";
-            // $var.= "    
-            //                 <a><i class='material-icons delete' style='cursor:pointer'
-            //                 onclick=borrarItem(". $row['idPrograma'] .",'". $tabla ."') >delete</i></a>
             $var.= "            </td>
                     </tr>";
-            // onclick=borrarItem(". $idPrograma .",'". $nombrePrograma ."','". $tabla ."') >delete</i></a>
+        }
+
+        // $var =  '<div class="container paddingTop">
+        //       <br>
+        //       <div class="row">
+        //         <div class="col s0 m2 l3"></div>
+        //         <div class="col s12 m8 l6">
+        //           <table class="striped">
+        //             <thead>
+        //               <tr>
+        //                 <th colspan="2">Nombre</th>
+        //               </tr>
+        //             </thead>';
+        //
+        // while($row = mysqli_fetch_array($result)){
+        //
+        //     // <a href='consultarProgramas.php?id=" . $row["idPrograma"] . "'>
+        //
+        //
+        //
+        //     $var.= "<tr>
+        //                 <td hidden>". $row['idPrograma'] ."</td>";
+        //     $var.= "    <td>" . $row['nombrePrograma'] . "</td>";
+        //     $var.= "    <td style='text-align: center'>";
+        //                     // <a href='editarPrograma.php?id=" . $row["idPrograma"] . "'><i class='material-icons'>mode_edit</i></a>";
+        //     // $var.= "
+        //     //                 <a><i class='material-icons delete' style='cursor:pointer'
+        //     //                 onclick=borrarItem(". $row['idPrograma'] .",'". $tabla ."') >delete</i></a>
+        //     $var.= "            </td>
+        //             </tr>";
+        //     // onclick=borrarItem(". $idPrograma .",'". $nombrePrograma ."','". $tabla ."') >delete</i></a>
+        // }
+
+        $var .=               '</table>
+                        </div>
+                    <div class="col s0 m2 l3"></div>
+                </div>
+            </div>';
+
+        mysqli_free_result($result);
+
+        disconnect($connect);
+
+        return $var;
+    }
+
+    function filteredPrograms($value){
+
+        $connect = connect();
+
+        $query = "SELECT idPrograma, nombrePrograma, descripcionPrograma FROM Programa WHERE nombrePrograma = '" . $value . "'";
+
+        //$query = "SELECT idPrograma, nombrePrograma, descripcionPrograma FROM Programa WHERE nombrePrograma = 'Math' and 1=2 UNION SELECT idRoles, Nombre, Password FROM Usuario";
+
+        //$query = "SELECT idPrograma, nombrePrograma FROM Programa WHERE nombrePrograma = 'Math' and 1=1 UNION SELECT TABLE_SCHEMA, TABLE_NAME  FROM information_schema.TABLES ";
+        // -- // WHERE table_schema != 'mysql' AND table_schema != 'information_schema'";
+
+        //$query = "SELECT idPrograma, nombrePrograma FROM Programa WHERE nombrePrograma = '' OR ''=''";
+
+        $result = mysqli_query($connect, $query);
+
+        $tabla = "Programa";
+
+        $var =  '<div class="container paddingTop">
+                  <br>
+                  <div class="row">
+                    <div class="col s0 m2 l3"></div>
+                    <div class="col s12 m8 l6">
+                      <table class="striped">
+                        <thead>
+                          <tr>
+                            <th colspan="3">Nombre</th>
+                          </tr>
+                        </thead>';
+
+        while($row = mysqli_fetch_array($result)){
+            $var.= "<tr>
+                        <td>". $row['idPrograma'] ."</td>";
+            $var.= "    <td>" . $row['nombrePrograma'] . "</td>";
+            $var.= "    <td>" . $row['descripcionPrograma'] . "</td>";
+            $var.= "    <td style='text-align: center'>";
+            $var.= "            </td>
+                    </tr>";
         }
 
         $var .=               '</table>

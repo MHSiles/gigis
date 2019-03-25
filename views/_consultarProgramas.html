@@ -1,9 +1,23 @@
 <nav id="titulo" class="cyan">
-        <div class="container">
-          <div class="nav-wrapper"><a class="page-title">PROGRAMS</a></div>
-        </div>
+    <div class="container">
+      <div class="nav-wrapper"><a class="page-title">PROGRAMS</a></div>
+    </div>
 </nav>
 
-<!-- <a href="../controllers/registrarPrograma.php" class="btn-floating btn-large lime bottomRight"><i class="material-icons">add</i></a> -->
+<?php if ($_SESSION['cuenta']['rol'] == 'A'): ?>
+  <div class="row">
+    <div class="col s12" style="margin: 50px 0">
+    </div>
+    <div class="col l3 offset-l4 s8">
+      <div class="input-field">
+        <input id="programSearchBar" type="text" class="validate">
+        <label for="programSearchBar">Program</label>
+      </div>
+    </div>
+    <div class="col l2 s4" style="padding-top: 20px">
+      <a id="searchPrograms" class="waves-effect waves-light btn">Search</a>
+    </div>
+  </div>
+<?php endif ?>
 
 <div id="listaProgramas"></div>

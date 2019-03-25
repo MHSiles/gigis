@@ -8,7 +8,7 @@
 
         include("moduloProgramas.php");
 
-        echo (listaProgramas());
+        echo (filteredPrograms($_GET["value"]));
 
     } else {
 

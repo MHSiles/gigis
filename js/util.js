@@ -10,8 +10,8 @@ document.onreadystatechange = function () {
 $(document).ready(function() {
     $('select').material_select();
 });
-            
-            
+
+
 $('#fechaInicio').pickadate({
   selectMonths: true,
   selectYears: 15,
@@ -33,7 +33,7 @@ $('#fechaInicio').pickadate({
       picker2.set('min', val.startOf('quarter').toDate());
       picker2.set('max', val.endOf('quarter').toDate());
     }
-    
+
     if( obj.clear ){
       picker2.set('min', false);
       picker2.set('max', false);
@@ -63,7 +63,7 @@ $('#fechaTermino').pickadate({
       picker1.set('min', val.startOf('quarter').toDate());
       picker1.set('max', val.endOf('quarter').toDate());
     }
-    
+
     if( obj.clear ){
       picker1.set('min', false);
       picker1.set('max', false);
@@ -72,7 +72,7 @@ $('#fechaTermino').pickadate({
 });
 
 $('#fechaNacimiento').pickadate({
-    
+
     selectYears: 100, // Creates a dropdown of 15 years to control year
     selectMonths: true, // Creates a dropdown to control month
     format: 'yyyy/mm/dd',
@@ -97,16 +97,16 @@ function fecha() {
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
-    
-    
+
+
     if(dd<10) {
         dd='0'+dd
-    } 
-    
+    }
+
     if(mm<10) {
         mm='0'+mm
-    } 
-    
+    }
+
     today = yyyy+','+mm+','+dd;
     return today;
 }
@@ -135,6 +135,19 @@ function listaProgramas(){
         document.getElementById("listaProgramas").innerHTML = data;
     });
 }
+
+$( "#searchPrograms" ).click(function() {
+
+  if($("#programSearchBar").val()){
+    $.get("../controllers/filteredList.php", { value: $("#programSearchBar").val() })
+    .done(function(data){
+        document.getElementById("listaProgramas").innerHTML = data;
+    });
+  }else{
+    alert( "Empty field" );
+  }
+
+});
 
 // ----------------------------------------------------------------------------------- //
 
@@ -262,7 +275,7 @@ function listaAdmin(){
 
 
 function borrarItem(idElem, table){
-    
+
     if(table == "Voluntario"){
         var tipoUsuario = table;
         table = "Usuario";
@@ -273,13 +286,13 @@ function borrarItem(idElem, table){
         var tipoUsuario = table;
         table = "Usuario";
     }
-    
+
     $.confirm({
         title: '¿Desea eliminar el registro?',
         content: 'Confirma para continuar.',
         buttons: {
             Continuar: function () {
-                $.post( 
+                $.post(
                         "../controllers/eliminar.php",
                         { id:idElem , tabla:table })
                         .done(function( ) {
@@ -289,7 +302,7 @@ function borrarItem(idElem, table){
                                 listaOrganizaciones();
                             }else if(table == "Actividad"){
                                 listaActividades();
-                                
+
                             }else if(table == "Usuario"){
                                 if(tipoUsuario == "Voluntario"){
                                     listaVoluntarios();
@@ -308,7 +321,7 @@ function borrarItem(idElem, table){
                 );
             },
             Cancelar: function () {
-    
+
             }
         }
     });
@@ -363,19 +376,4 @@ $(document).on('change', '.div-toggle', function() {
 });
 $(document).ready(function(){
   $('.div-toggle').trigger('change');
-});
-
-$("#formValidate").validate({
-    rules: {
-            newPass: {
-                required: true,
-                minlength: 15,
-            },
-    },
-    messages: {
-        newPass:{
-            required: "Enter a username",
-            minlength: "Enter at least 5 characters"
-        },
-    },
 });
