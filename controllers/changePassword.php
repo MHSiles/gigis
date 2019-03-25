@@ -37,25 +37,27 @@
 
     include_once("moduloUsuario.php");
 
-    // if(isset($_POST["id"]) && isset($_POST['password'])){
-    //
-    //     echo("HOLA");
-    //
-    //     //$hash = password_hash($_POST["newPass"], PASSWORD_DEFAULT);
-    //
-    //     changePassword($_POST["id"], $_POST["password"]);
-    //
-    //     header("location:home.php");
-    //
-    // }
+    if(isset($_POST["newPass"])){
 
-    echo($_POST["password"]);
+        changePassword($_SESSION['cuenta']['id'], $_POST["newPass"]);
+
+        header("location:home.php");
+
+    }else if(isset($_GET["id"]) && isset($_GET["password"])){
+
+      changePassword($_GET["id"], $_GET["password"]);
+
+      header("location:home.php");
+
+    }
 
     include_once("../views/_header.html");
 
     include_once("../views/_changePassword.html");
 
     include_once("../views/_footer.html");
+
+
 
 
 ?>
