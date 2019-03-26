@@ -9,6 +9,7 @@ document.onreadystatechange = function () {
 
 $(document).ready(function() {
     $('select').material_select();
+    console.log("The list students accounts are not secured at all! Find out the way to get there and create your own account ;).");
 });
 
 
